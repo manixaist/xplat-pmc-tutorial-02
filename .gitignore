@@ -1,6 +1,11 @@
 *.exe
 *.o
 
+
+grfx/Thumbs.db
+
+
+
 ## Visual Studio Code
 .vscode/
 
