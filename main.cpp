@@ -1,5 +1,6 @@
 // main.cpp : Defines the entry point for the console application.
 //
+#include <stdio.h>
 #include "SDL.h"
 #include "tiledmap.h"
 
