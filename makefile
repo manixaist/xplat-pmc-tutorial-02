@@ -1,18 +1,19 @@
 SHELL = /bin/sh
 .SUFFIXES:
-.SUFFIXES: .cpp .o
+.SUFFIXES: .cpp .o .d
 
-EXE_NAME = xplat-pmc-tutorial-01.exe
+EXE_NAME = xplat-pmc-tutorial-02.exe
 
-# Add additional .cpp/.o pairs to the MODULES List (e.g. main input graphics ...)
-MODULES := main
 # Generates a list of the modules with ".o" appended
-OBJS := $(MODULES).o
+OBJS := \
+	main.o \
+	tiledmap.o 
 
 # external libraries.
 # remember ordering is important to the linker...
 LIBS := \
-	-lSDL2
+	-lSDL2 \
+	-lSDL2_image
 
 REBUILDABLES := $(OBJS) $(EXE_NAME)
 
@@ -21,24 +22,25 @@ REBUILDABLES := $(OBJS) $(EXE_NAME)
 CXXFLAGS += -Wall -g -std=c++11 -m64
 
 # list of external paths
-INCLUDE_PATHS := \
-	/usr/include/SDL2 
-
-# Expands each include path above to -I/path/1 -I/path/2 ... etc
-INCLUDES := -I$(INCLUDE_PATHS)
+INCLUDES := \
+	-I/usr/include/SDL2 \
+	-I./include
 
 all : $(EXE_NAME)
-	echo All done
+	@echo All done
 
 # This is the linking rule, it creates the exe from the list of dependent objects
 $(EXE_NAME) : $(OBJS)
+	@echo Linking $@...
 	g++ -g -o $@ $^ $(LIBS)
 
 # Compilation rule, it matches the object's corresponding .cpp file
-%.o : %.cpp
+.cpp.o : 
+	@echo Compiling $<...
 	g++ -o $@ -c $(CXXFLAGS) $(INCLUDES) $<
+	@echo
 
 .PHONY : clean
 clean : 
 	rm -f $(REBUILDABLES)
-	echo Clean done
+	@echo Clean done

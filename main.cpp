@@ -1,6 +1,5 @@
 // main.cpp : Defines the entry point for the console application.
 //
-#include <stdio.h>
 #include "SDL.h"
 #include "tiledmap.h"
 
@@ -124,7 +123,7 @@ int main(int argc, char* argv[])
         SDL_Texture* pTilesTexture =  LoadTexture("./grfx/tiles.png", pSDLRenderer);
         if (pTilesTexture == nullptr)
         {
-            printf("LoadTexture() failed, error should be above\n", SDL_GetError());
+            printf("LoadTexture() failed, error should be above\n");
         }
         else
         {
@@ -194,8 +193,6 @@ int main(int argc, char* argv[])
                 SDL_Event eventSDL;
 
                 Uint32 startTicks;
-                SDL_Rect r;
-
                 while (!fQuit)
                 {
                     startTicks = SDL_GetTicks();
